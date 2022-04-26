@@ -1,0 +1,54 @@
+﻿<Window x:Class="MVVMOcupaciones.Views.listaOcupacion"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVMOcupaciones.Views"
+        xmlns:vm="clr-namespace:MVVMOcupaciones.ViewModels" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="lista Ocupacion" Height="450" Width="500" Background="#FF2AB8E8">
+    <Window.Resources>
+        <vm:OcupacionViewModel x:Key="OcupacionVM"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource OcupacionVM}">
+        <StackPanel  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <TextBox Text="{Binding textodescripcion}" Width="200" Margin="20,0,0,0" ></TextBox>
+                <TextBox Text="{Binding textoingreso}" x:Name="txtIngreso" Width="50" Margin="20,0,0,0"></TextBox>
+                <Button Command="{Binding ListarOcupacionCommand}" HorizontalAlignment="Right" Margin="20,0,20,0">
+                    <Label Content="Buscar"></Label>
+                </Button>
+                <Button Command="{Binding AgregarOcupacionCommand}" HorizontalAlignment="Right" Margin="0,0,20,0">
+                    <Label Content="Agregar"></Label>
+                </Button>
+            </StackPanel>
+            <StackPanel>
+                <ListBox ItemsSource="{Binding ListaOcupacion}" Margin="20,10,20,0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding ListarOcupacionCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="35"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="1" Text="{Binding OcupacionId}" Foreground="#FF3276C7" Margin="10,0,0,0" />
+                                <TextBlock Grid.Column="2" Text="{Binding Descripcion}" Foreground="#FF3276C7" Margin="10,0,0,0" Width="200"/>
+                                <TextBlock Grid.Column="3" Text="{Binding Ingresos}" Foreground="#FF3276C7" Margin="10,0,0,0"/>
+                                
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
